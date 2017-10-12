@@ -23,30 +23,24 @@ var map = { 1:'*',    2:'abc', 3:'def',
  * @return {string[]}
  */
 var letterCombinations = function(digits) {
-    if(digits.length < 1) return [];
-    return helper(digits, 0);
-};
-
-function helper(digits, index) {
-    if(index >= digits.length) {
-        return [""];
-    }
+    if(digits.length < 1) 
+        return [];
 
     let answer = [];
-    let currentDigit = digits.charAt(index);
-    let digitString = map[currentDigit];
-    let nextArr = helper(digits, index+1);
-
+    let digitString = map[digits.charAt(0)];
+    let nextArr = letterCombinations(digits.substring(1));
 
     for(let i=0; i<digitString.length; i++) {
+        if(nextArr.length <= 0) 
+            answer.push(digitString.charAt(i));
         for(let j=0; j<nextArr.length; j++) {
-            let str = digitString.charAt(i) + nextArr[j];
-            answer.push(str);
+            answer.push(digitString.charAt(i) + nextArr[j]);
         }
     }
+
     return answer;
-}
+};
 
 var arr = letterCombinations("236");
-console.log(arr);
+console.log(arr)
 
